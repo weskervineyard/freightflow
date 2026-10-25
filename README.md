@@ -83,11 +83,11 @@ npm run dev          # http://localhost:3000
 npm run build        # static export → /out (deploy to Vercel/Netlify/Cloudflare Pages/nginx)
 ```
 
-### Public demo (Cloudflare Pages)
-Cloudflare Pages builds and publishes the demo on every push to `main`. Project settings:
-build command `npm run build`, output directory `out`, no root directory, no environment
-variables (Node 22 comes from `.node-version`; leave `NEXT_PUBLIC_BASE_PATH` unset).
-Security headers come from `public/_headers`. Open `/portal/?reset=1` to reset a browser's demo data.
+### Public demo (Cloudflare)
+Cloudflare builds and publishes the demo on every push to `main`: build command `npm run build`,
+deploy command `npx wrangler deploy` (`wrangler.jsonc` serves the static `out/` folder). Node 22
+comes from `.node-version`; leave `NEXT_PUBLIC_BASE_PATH` unset. Security headers come from
+`public/_headers`. Open `/portal/?reset=1` to reset a browser's demo data.
 
 ### Logging in (demo accounts, localStorage auth)
 | Role | Username | Password | Home page |
