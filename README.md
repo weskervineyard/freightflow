@@ -83,6 +83,11 @@ npm run dev          # http://localhost:3000
 npm run build        # static export → /out (deploy to Vercel/Netlify/Cloudflare Pages/nginx)
 ```
 
+### Public demo (GitHub Pages)
+`.github/workflows/deploy-demo.yml` builds and publishes the demo on every push to `main`.
+One-time setup: **Settings → Pages → Source: GitHub Actions**. The demo is then at
+`https://<owner>.github.io/<repo>/`. Add `/portal/?reset=1` to a URL to reset a browser's demo data.
+
 ### Logging in (demo accounts, localStorage auth)
 | Role | Username | Password | Home page |
 |---|---|---|---|

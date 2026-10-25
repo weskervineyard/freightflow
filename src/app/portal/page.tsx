@@ -61,10 +61,7 @@ export default function PortalPage() {
     if (tParam) {
       // Legacy per-shipment token?
       const all = db.getAll();
-      const found =
-        all.shipments.find((s) => legacyShipmentToken(s.id) === tParam) ||
-        all.shipments.find((s) => s.id === tParam || s.reference === tParam) ||
-        null;
+      const found = all.shipments.find((s) => legacyShipmentToken(s.id) === tParam) || null;
       if (found) { setSelectedShipmentId(found.id); setView('legacy'); return; }
       // Or maybe it's a valid customer token without c= — try first matching customer
       const matchedCust = all.customers.find(c => customerPortalToken(c.id) === tParam);

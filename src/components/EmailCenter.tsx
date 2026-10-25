@@ -17,6 +17,12 @@ const TEMPLATES = [
   { id: 'custom', label: 'Custom message', subject: () => 'Message from FreightFlow', body: () => 'Hello,\n\n' },
 ] as const;
 
+// Inbound HTML is untrusted: parse it inertly and render only its text content.
+function htmlToText(html: string): string {
+  if (typeof DOMParser === 'undefined') return html.replace(/<[^>]+>/g, '');
+  return new DOMParser().parseFromString(html, 'text/html').body.textContent || '';
+}
+
 function statusIcon(s: EmailLog['status']) {
   switch (s) {
     case 'queued': return <Clock className="w-4 h-4 text-slate-500" />;
@@ -502,7 +508,7 @@ function InboxPanel({ inbound, onRefresh, onCompose }: { inbound: InboundEmail[]
                 </div>
               )}
               <div className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
-                {selected.bodyHtml ? <span dangerouslySetInnerHTML={{ __html: selected.bodyHtml.replace(/<[^>]+>/g, '') }} /> : selected.bodyPreview}
+                {selected.bodyHtml ? htmlToText(selected.bodyHtml) : selected.bodyPreview}
               </div>
               <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex gap-2">
                 <Button size="sm" variant="outline" onClick={() => { onCompose('custom'); /* could pre-fill */ }}>
